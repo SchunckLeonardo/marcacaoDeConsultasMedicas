@@ -4,8 +4,8 @@ import theme from '../styles/theme';
 
 export const HeaderContainer = styled.View`
   background-color: ${theme.colors.primary};
-  padding-top: ${StatusBar.currentHeight}px;
   padding: ${theme.spacing.medium}px;
+  padding-top: 60px;
   elevation: 4;
   shadow-color: #000;
   shadow-opacity: 0.3;
