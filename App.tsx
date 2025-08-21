@@ -1,3 +1,7 @@
+/**
+ * Entry point do aplicativo
+ * Configura tema, provê contexto de autenticação e inicializa a navegação.
+ */
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/styles/theme';

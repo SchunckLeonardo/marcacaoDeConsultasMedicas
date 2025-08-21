@@ -1,8 +1,10 @@
+/**
+ * Bootstrap do aplicativo
+ * Registra o componente raiz para ambiente Expo ou build nativo.
+ */
 import { registerRootComponent } from 'expo';
 
 import App from './App';
 
-// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// It also ensures that whether you load the app in Expo Go or in a native build,
-// the environment is set up appropriately
+// Bloco: registro do componente raiz e garantia de setup do ambiente Expo/Nativo
 registerRootComponent(App);
