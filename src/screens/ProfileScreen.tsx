@@ -1,3 +1,7 @@
+/**
+ * Tela de perfil do usuário logado
+ * Exibe dados básicos e permite sair da sessão.
+ */
 import React from 'react';
 import styled from 'styled-components/native';
 import { Button, ListItem } from 'react-native-elements';
@@ -17,6 +21,7 @@ const ProfileScreen: React.FC = () => {
   const { user, signOut } = useAuth();
   const navigation = useNavigation<ProfileScreenProps['navigation']>();
 
+  // Bloco: traduz roles internos para rótulos de interface
   const getRoleText = (role: string) => {
     switch (role) {
       case 'admin':

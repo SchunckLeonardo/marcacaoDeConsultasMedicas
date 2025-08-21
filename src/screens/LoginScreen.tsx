@@ -1,3 +1,7 @@
+/**
+ * Tela de login
+ * Autentica o usuário utilizando o contexto e exibe dicas de credenciais mock.
+ */
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { Input, Button, Text } from 'react-native-elements';
@@ -20,6 +24,7 @@ const LoginScreen: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
+    // Bloco: executa fluxo de login com feedback de carregamento/erro
     const handleLogin = async () => {
         try {
             setLoading(true);

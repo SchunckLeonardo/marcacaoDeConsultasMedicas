@@ -1,3 +1,7 @@
+/**
+ * Painel do Administrador
+ * Visualiza consultas recentes, gerencia usuários e atualiza status.
+ */
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { ScrollView, ViewStyle, TextStyle } from 'react-native';
@@ -66,6 +70,7 @@ const AdminDashboardScreen: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
 
+    // Bloco: carrega consultas e usuários do armazenamento local
     const loadData = async () => {
         try {
             // Carrega consultas
@@ -88,13 +93,14 @@ const AdminDashboardScreen: React.FC = () => {
         }
     };
 
-    // Carrega os dados quando a tela estiver em foco
+    // Bloco: registra efeito para recarregar dados quando a tela ganhar foco
     useFocusEffect(
         React.useCallback(() => {
             loadData();
         }, [])
     );
 
+    // Bloco: atualiza o status de uma consulta e persiste a alteração
     const handleUpdateStatus = async (appointmentId: string, newStatus: 'confirmed' | 'cancelled') => {
         try {
             const storedAppointments = await AsyncStorage.getItem('@MedicalApp:appointments');

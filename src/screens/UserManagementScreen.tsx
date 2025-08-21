@@ -1,3 +1,7 @@
+/**
+ * Gerenciamento de Usuários (Admin)
+ * Lista, filtra e permite excluir usuários (mock/AsyncStorage).
+ */
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { ScrollView, ViewStyle, TextStyle } from 'react-native';
@@ -32,6 +36,7 @@ const UserManagementScreen: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
 
+    // Bloco: carrega usuários e remove o usuário atual da listagem
     const loadUsers = async () => {
         try {
             const storedUsers = await AsyncStorage.getItem('@MedicalApp:users');
@@ -48,6 +53,7 @@ const UserManagementScreen: React.FC = () => {
         }
     };
 
+    // Bloco: exclui usuário por id e persiste a nova lista
     const handleDeleteUser = async (userId: string) => {
         try {
             const storedUsers = await AsyncStorage.getItem('@MedicalApp:users');
@@ -62,7 +68,7 @@ const UserManagementScreen: React.FC = () => {
         }
     };
 
-    // Carrega os usuários quando a tela estiver em foco
+    // Bloco: recarrega usuários quando a tela estiver em foco
     useFocusEffect(
         React.useCallback(() => {
             loadUsers();

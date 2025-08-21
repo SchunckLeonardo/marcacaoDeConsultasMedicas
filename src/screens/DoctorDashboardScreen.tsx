@@ -1,3 +1,7 @@
+/**
+ * Painel do Médico
+ * Lista consultas do médico e permite confirmar/cancelar.
+ */
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { ScrollView, ViewStyle, TextStyle } from 'react-native';
@@ -59,6 +63,7 @@ const DoctorDashboardScreen: React.FC = () => {
     const [appointments, setAppointments] = useState<Appointment[]>([]);
     const [loading, setLoading] = useState(true);
 
+    // Bloco: carrega consultas do médico autenticado
     const loadAppointments = async () => {
         try {
             const storedAppointments = await AsyncStorage.getItem('@MedicalApp:appointments');
@@ -76,6 +81,7 @@ const DoctorDashboardScreen: React.FC = () => {
         }
     };
 
+    // Bloco: atualiza status da consulta e recarrega lista
     const handleUpdateStatus = async (appointmentId: string, newStatus: 'confirmed' | 'cancelled') => {
         try {
             const storedAppointments = await AsyncStorage.getItem('@MedicalApp:appointments');
@@ -95,7 +101,7 @@ const DoctorDashboardScreen: React.FC = () => {
         }
     };
 
-    // Carrega as consultas quando a tela estiver em foco
+    // Bloco: recarrega consultas quando a tela estiver em foco
     useFocusEffect(
         React.useCallback(() => {
             loadAppointments();

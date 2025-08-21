@@ -1,3 +1,7 @@
+/**
+ * Painel do Paciente
+ * Lista consultas do paciente e permite navegar para agendamento.
+ */
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { ScrollView, ViewStyle, TextStyle } from 'react-native';
@@ -59,6 +63,7 @@ const PatientDashboardScreen: React.FC = () => {
     const [appointments, setAppointments] = useState<Appointment[]>([]);
     const [loading, setLoading] = useState(true);
 
+    // Bloco: carrega consultas do paciente autenticado
     const loadAppointments = async () => {
         try {
             const storedAppointments = await AsyncStorage.getItem('@MedicalApp:appointments');
@@ -76,7 +81,7 @@ const PatientDashboardScreen: React.FC = () => {
         }
     };
 
-    // Carrega as consultas quando a tela estiver em foco
+    // Bloco: recarrega consultas quando a tela estiver em foco
     useFocusEffect(
         React.useCallback(() => {
             loadAppointments();

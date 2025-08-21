@@ -1,3 +1,7 @@
+/**
+ * Tela inicial do paciente
+ * Lista consultas do AsyncStorage e permite navegar para agendamento.
+ */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { FlatList, RefreshControl, TouchableOpacity } from 'react-native';
@@ -41,6 +45,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [refreshing, setRefreshing] = useState(false);
 
+  // Bloco: carrega consultas do armazenamento local
   const loadAppointments = async () => {
     try {
       const storedAppointments = await AsyncStorage.getItem('appointments');
@@ -58,16 +63,19 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     }, [])
   );
 
+  // Bloco: ação de pull-to-refresh
   const onRefresh = async () => {
     setRefreshing(true);
     await loadAppointments();
     setRefreshing(false);
   };
 
+  // Bloco: obtém dados do médico pelo id
   const getDoctorInfo = (doctorId: string): Doctor | undefined => {
     return doctors.find(doctor => doctor.id === doctorId);
   };
 
+  // Bloco: renderiza item de consulta na lista
   const renderAppointment = ({ item }: { item: Appointment }) => {
     const doctor = getDoctorInfo(item.doctorId);
 

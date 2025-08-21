@@ -1,3 +1,7 @@
+/**
+ * Tela de cadastro de paciente
+ * Coleta dados básicos e utiliza o contexto para registrar.
+ */
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { Input, Button, Text } from 'react-native-elements';
@@ -21,6 +25,7 @@ const RegisterScreen: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
+    // Bloco: valida campos e executa fluxo de registro com feedback
     const handleRegister = async () => {
         try {
             setLoading(true);
@@ -37,7 +42,7 @@ const RegisterScreen: React.FC = () => {
                 password,
             });
 
-            // Após o registro bem-sucedido, navega para o login
+            // Bloco: navegação após sucesso
             navigation.navigate('Login');
         } catch (err) {
             setError('Erro ao criar conta. Tente novamente.');

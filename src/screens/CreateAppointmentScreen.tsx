@@ -1,3 +1,7 @@
+/**
+ * Tela de criação de consulta
+ * Permite escolher data, horário e médico, e persiste a consulta.
+ */
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { ScrollView, ViewStyle } from 'react-native';
@@ -78,6 +82,7 @@ const CreateAppointmentScreen: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
+    // Bloco: valida entradas, cria e salva a nova consulta
     const handleCreateAppointment = async () => {
         try {
             setLoading(true);
@@ -88,11 +93,11 @@ const CreateAppointmentScreen: React.FC = () => {
                 return;
             }
 
-            // Recupera consultas existentes
+            // Bloco: recuperação de consultas existentes
             const storedAppointments = await AsyncStorage.getItem('@MedicalApp:appointments');
             const appointments: Appointment[] = storedAppointments ? JSON.parse(storedAppointments) : [];
 
-            // Cria nova consulta
+            // Bloco: construção do objeto de consulta
             const newAppointment: Appointment = {
                 id: Date.now().toString(),
                 patientId: user?.id || '',
@@ -105,10 +110,10 @@ const CreateAppointmentScreen: React.FC = () => {
                 status: 'pending',
             };
 
-            // Adiciona nova consulta à lista
+            // Bloco: adiciona nova consulta à lista
             appointments.push(newAppointment);
 
-            // Salva lista atualizada
+            // Bloco: persiste lista atualizada
             await AsyncStorage.setItem('@MedicalApp:appointments', JSON.stringify(appointments));
 
             alert('Consulta agendada com sucesso!');
