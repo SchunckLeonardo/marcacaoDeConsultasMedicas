@@ -1,3 +1,7 @@
+/**
+ * Componente de card de consulta
+ * Exibe médico, data/hora, especialidade e status.
+ */
 import React from 'react';
 import styled from 'styled-components/native';
 import { ViewStyle } from 'react-native';
@@ -23,6 +27,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
   onPress,
   style,
 }) => {
+  // Bloco: mapeia status para cores do tema
   const getStatusColor = () => {
     switch (status) {
       case 'confirmed':
@@ -35,6 +40,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
   };
 
   return (
+    // Bloco: estrutura visual do card com avatar, informações e status
     <Card containerStyle={[styles.card, style]}>
       <DoctorInfo>
         <Avatar

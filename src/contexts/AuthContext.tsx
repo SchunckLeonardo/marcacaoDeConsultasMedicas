@@ -1,9 +1,14 @@
+/**
+ * Contexto de autenticação
+ * Centraliza estado do usuário e operações de login/registro/logout.
+ * Metodologia: cada bloco de execução possui comentário descritivo.
+ */
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { authService } from '../services/auth';
 import { User, LoginCredentials, RegisterData, AuthContextData } from '../types/auth';
 
-// Chaves de armazenamento
+// Bloco: chaves utilizadas no AsyncStorage para persistência do usuário/autenticação
 const STORAGE_KEYS = {
     USER: '@MedicalApp:user',
     TOKEN: '@MedicalApp:token',
@@ -12,14 +17,17 @@ const STORAGE_KEYS = {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    // Bloco: estados do contexto (usuário autenticado e indicador de carregamento)
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // Bloco: rotina inicial de carregamento dos dados persistidos
         loadStoredUser();
         loadRegisteredUsers();
     }, []);
 
+    // Bloco: carrega usuário previamente armazenado para manter sessão
     const loadStoredUser = async () => {
         try {
             const storedUser = await authService.getStoredUser();
@@ -33,6 +41,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     };
 
+    // Bloco: carrega pacientes registrados do armazenamento (suporte a login de paciente)
     const loadRegisteredUsers = async () => {
         try {
             await authService.loadRegisteredUsers();
@@ -41,6 +50,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     };
 
+    // Bloco: efetua login e persiste usuário + token
     const signIn = async (credentials: LoginCredentials) => {
         try {
             const response = await authService.signIn(credentials);
@@ -52,6 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     };
 
+    // Bloco: registra novo paciente, define como usuário atual e persiste dados
     const register = async (data: RegisterData) => {
         try {
             const response = await authService.register(data);
@@ -63,6 +74,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     };
 
+    // Bloco: finaliza a sessão e limpa dados persistidos
     const signOut = async () => {
         try {
             await authService.signOut();
@@ -75,6 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     return (
+        // Bloco: provê estado e ações de autenticação para a árvore de componentes
         <AuthContext.Provider value={{ user, loading, signIn, register, signOut }}>
             {children}
         </AuthContext.Provider>

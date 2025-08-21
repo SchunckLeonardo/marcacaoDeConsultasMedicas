@@ -1,3 +1,7 @@
+/**
+ * Formulário de agendamento de consulta
+ * Permite selecionar médico, data, horário e descrição.
+ */
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { Button, Input, Text } from 'react-native-elements';
@@ -37,6 +41,7 @@ type AppointmentFormProps = {
     }) => void;
 };
 
+// Bloco: gera intervalos de horário de 30 minutos entre 09:00 e 18:00
 const generateTimeSlots = () => {
     const slots = [];
     for (let hour = 9; hour < 18; hour++) {
@@ -47,6 +52,7 @@ const generateTimeSlots = () => {
 };
 
 const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
+    // Bloco: estados locais do formulário
     const [selectedDoctor, setSelectedDoctor] = useState<string>('');
     const [dateInput, setDateInput] = useState(() => {
         return Date.now().toString()
@@ -55,6 +61,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
     const [description, setDescription] = useState('');
     const timeSlots = generateTimeSlots();
 
+    // Bloco: valida data mínima (hoje) e máxima (3 meses)
     const validateDate = (inputDate: string) => {
         const date = new Date(parseInt(inputDate))
 
@@ -64,6 +71,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
         return dayjs(date).isAfter(today) && dayjs(date).isBefore(maxDate)
     }
 
+    // Bloco: valida campos e emite o objeto de agendamento via onSubmit
     const handleSubmit = () => {
         if (!selectedDoctor || !selectedTime || !description) {
             alert('Por favor, preencha todos os campos');
@@ -91,9 +99,8 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
         });
     };
 
+    // Bloco: placeholder de validação de disponibilidade do horário
     const isTimeSlotAvailable = (time: string) => {
-        // Aqui você pode adicionar lógica para verificar se o horário está disponível (Faremos isto nas próximas aulas)
-        // Por exemplo, verificar se já existe uma consulta agendada para este horário
         return true;
     };
 
