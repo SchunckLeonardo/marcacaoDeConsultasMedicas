@@ -1,3 +1,7 @@
+/**
+ * Configuração de navegação principal
+ * Define rotas públicas e protegidas conforme o papel do usuário.
+ */
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -21,7 +25,8 @@ export const AppNavigator: React.FC = () => {
     const { user, loading } = useAuth();
 
     if (loading) {
-        return null; // Ou um componente de loading
+        // Bloco: evita renderizar navegação enquanto carrega estado de autenticação
+        return null; // Poderia exibir um Splash/Loading aqui
     }
 
     return (
@@ -32,13 +37,13 @@ export const AppNavigator: React.FC = () => {
                 }}
             >
                 {!user ? (
-                    // Rotas públicas
+                    // Bloco: rotas públicas (sem autenticação)
                     <>
                         <Stack.Screen name="Login" component={LoginScreen} />
                         <Stack.Screen name="Register" component={RegisterScreen} />
                     </>
                 ) : (
-                    // Rotas protegidas
+                    // Bloco: rotas protegidas (dependentes de role)
                     <>
                         {user.role === 'admin' && (
                             <>
@@ -71,7 +76,7 @@ export const AppNavigator: React.FC = () => {
                             />
                         )}
 
-                        {/* Rotas comuns para todos os usuários autenticados */}
+                        {/* Bloco: rotas comuns para todos os usuários autenticados */}
                         <Stack.Screen
                             name="Home"
                             component={HomeScreen}

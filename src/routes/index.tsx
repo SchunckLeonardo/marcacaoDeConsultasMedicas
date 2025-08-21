@@ -1,3 +1,7 @@
+/**
+ * Rotas auxiliares (stack interno)
+ * Define um fluxo simples sem autenticação para Home, CreateAppointment e Profile.
+ */
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import CreateAppointmentScreen from '../screens/CreateAppointmentScreen';
