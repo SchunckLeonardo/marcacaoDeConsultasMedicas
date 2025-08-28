@@ -1,16 +1,15 @@
 /**
- * Tela de login
- * Autentica o usuário utilizando o contexto e exibe dicas de credenciais mock.
+ * Tela de login (modularizada)
  */
 import React, { useState } from 'react';
-import styled from 'styled-components/native';
 import { Input, Button, Text } from 'react-native-elements';
-import { useAuth } from '../contexts/AuthContext';
-import theme from '../styles/theme';
 import { ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types/navigation';
+import { useAuth } from '../../contexts/AuthContext';
+import theme from '../../styles/theme';
+import { RootStackParamList } from '../../types/navigation';
+import { Container, Title, ErrorText } from './styles';
 
 type LoginScreenProps = {
     navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
@@ -24,7 +23,6 @@ const LoginScreen: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    // Bloco: executa fluxo de login com feedback de carregamento/erro
     const handleLogin = async () => {
         try {
             setLoading(true);
@@ -75,11 +73,9 @@ const LoginScreen: React.FC = () => {
                 buttonStyle={styles.registerButtonStyle}
             />
 
-            <Text style={styles.hint}>
-                Use as credenciais de exemplo:
-            </Text>
+            <Text style={styles.hint}>Use as credenciais de exemplo:</Text>
             <Text style={styles.credentials}>
-                Admin: admin@example.com / 123456{'\n'}
+                Admin: admin@example.com / 123456{"\n"}
                 Médicos: joao@example.com, maria@example.com, pedro@example.com / 123456
             </Text>
         </Container>
@@ -119,25 +115,6 @@ const styles = {
     },
 };
 
-const Container = styled.View`
-  flex: 1;
-  padding: 20px;
-  justify-content: center;
-  background-color: ${theme.colors.background};
-`;
-
-const Title = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 30px;
-  color: ${theme.colors.text};
-`;
-
-const ErrorText = styled.Text`
-  color: ${theme.colors.error};
-  text-align: center;
-  margin-bottom: 10px;
-`;
-
 export default LoginScreen;
+
+

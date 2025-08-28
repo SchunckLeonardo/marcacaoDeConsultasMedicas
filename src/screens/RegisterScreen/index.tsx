@@ -1,16 +1,15 @@
 /**
- * Tela de cadastro de paciente
- * Coleta dados básicos e utiliza o contexto para registrar.
+ * Tela de cadastro de paciente (modularizada)
  */
 import React, { useState } from 'react';
-import styled from 'styled-components/native';
-import { Input, Button, Text } from 'react-native-elements';
-import { useAuth } from '../contexts/AuthContext';
-import theme from '../styles/theme';
+import { Input, Button } from 'react-native-elements';
 import { ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types/navigation';
+import { useAuth } from '../../contexts/AuthContext';
+import theme from '../../styles/theme';
+import { RootStackParamList } from '../../types/navigation';
+import { Container, Title, ErrorText } from './styles';
 
 type RegisterScreenProps = {
     navigation: NativeStackNavigationProp<RootStackParamList, 'Register'>;
@@ -25,7 +24,6 @@ const RegisterScreen: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    // Bloco: valida campos e executa fluxo de registro com feedback
     const handleRegister = async () => {
         try {
             setLoading(true);
@@ -36,13 +34,7 @@ const RegisterScreen: React.FC = () => {
                 return;
             }
 
-            await register({
-                name,
-                email,
-                password,
-            });
-
-            // Bloco: navegação após sucesso
+            await register({ name, email, password });
             navigation.navigate('Login');
         } catch (err) {
             setError('Erro ao criar conta. Tente novamente.');
@@ -122,25 +114,6 @@ const styles = {
     },
 };
 
-const Container = styled.View`
-  flex: 1;
-  padding: 20px;
-  justify-content: center;
-  background-color: ${theme.colors.background};
-`;
-
-const Title = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 30px;
-  color: ${theme.colors.text};
-`;
-
-const ErrorText = styled.Text`
-  color: ${theme.colors.error};
-  text-align: center;
-  margin-bottom: 10px;
-`;
-
 export default RegisterScreen;
+
+

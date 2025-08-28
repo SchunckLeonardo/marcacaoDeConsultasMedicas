@@ -1,10 +1,23 @@
-import styled from "styled-components/native";
-import theme from "./theme";
-import { FlatList, TouchableOpacity, TouchableOpacityProps, View } from "react-native";
+import styled from 'styled-components/native';
+import { FlatList, TouchableOpacity } from 'react-native';
+import theme from '../../styles/theme';
 
 export const Container = styled.View`
   flex: 1;
   background-color: ${theme.colors.background};
+`;
+
+export const HeaderContainer = styled.View`
+  background-color: ${theme.colors.primary};
+  padding: 16px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const HeaderTitle = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+  color: ${theme.colors.white};
 `;
 
 export const Content = styled.View`
@@ -80,7 +93,7 @@ export const ActionButtons = styled.View`
   margin-top: ${theme.spacing.small}px;
 `;
 
-export const ActionButton: React.ForwardRefExoticComponent<TouchableOpacityProps & React.RefAttributes<View>> = styled(TouchableOpacity)`
+export const ActionButton = styled(TouchableOpacity)`
   padding: ${theme.spacing.small}px;
   margin-left: ${theme.spacing.small}px;
 `;
